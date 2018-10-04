@@ -1,19 +1,28 @@
+<!DOCTYPE html>
 <html>
-  <head>
+<head>
+    <meta charset="UTF-8">
     <title>Menu</title>
     <script src="menu.js"></script>
     <script>
-      window.onload = function() {
-        var item1 = new MenuItem('item', 'Home', '/');
-        var item2 = new MenuItem('item', 'News', '/news');
-        var item3 = new MenuItem('item', 'Blog', '/blog');
+        window.onload = function () {
+            var item1 = new MenuItem('item', 'Home', '/');
+            var item2 = new MenuItem('item', 'News', '/news');
+            var item3 = new MenuItem('item', 'Blog', '/blog');
 
-        var menu = new Menu('menu', 'menu', [item1, item2, item3]);
-        document.getElementById('wrapper').appendChild(menu.render());
-      }
+            var item41 = new MenuItem('item', 'Blog2', '/blog2');
+            var item42 = new MenuItem('item', 'Blog3', '/blog3');
+            var item4 = new SubMenu('menu', 'menu', [item41, item42]);
+
+            var menu = new Menu('menu', 'menu', [item1, item2, item3, item4]);
+            document.getElementById('wrapper').appendChild(menu.render());
+
+            document.getElementById('wrapper').querySelector('ul>li:first-child').remove();
+        };
     </script>
-  </head>
-  <body>
-    <div id="wrapper"></div>
-  </body>
+
+</head>
+<body>
+<div id="wrapper"></div>
+</body>
 </html>

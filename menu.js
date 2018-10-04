@@ -1,56 +1,84 @@
 function Container(id, className, tagName) {
-  if(!['div', 'ul', 'li', 'a'].includes(tagName)) {
-    // Ошибка
-  }
+    if (!['div', 'ul', 'li', 'a'].includes(tagName)) {
+        // Ошибка
+    }
 
-  this.id = id;
-  this.class = className;
-  this.tagName = tagName;
+    this.id = id;
+    this.class = className;
+    this.tagName = tagName;
 }
 
-Container.prototype.render = function() {
-  var wrapper = document.createElement(this.tagName);
-  wrapper.id = this.id;
-  wrapper.className = this.class;
+Container.prototype.render = function () {
+    var wrapper = document.createElement(this.tagName);
+    wrapper.id = this.id;
+    wrapper.className = this.class;
 
-  return wrapper;
-}
+    return wrapper;
+};
+
+Container.prototype.remove = function () {
+    this.remove();
+};
 
 function Menu(id, className, items) {
-  Container.call(this, id, className, 'ul'); 
+    Container.call(this, id, className, 'ul');
 
-  this.items = items;
+    this.items = items;
 }
 
 Menu.prototype = Object.create(Container.prototype);
-Menu.prototype.render = function() {
-  var ul = document.createElement('ul');
+Menu.prototype.render = function () {
+    var ul = document.createElement('ul');
 
-  this.items.forEach(function(item) {
-    if (item instanceof Container) {
-      ul.appendChild(item.render());
-    }
-  });
+    this.items.forEach(function (item) {
+        if (item instanceof Container) {
+            ul.appendChild(item.render());
+        }
+    });
 
-  return ul;
-}
+    return ul;
+};
 
 function MenuItem(className, title, href) {
-  Container.call(this, null, className, 'li'); 
+    Container.call(this, null, className, 'li');
 
-  this.title = title;
-  this.href = href;
+    this.title = title;
+    this.href = href;
 }
 
 MenuItem.prototype = Object.create(Container.prototype);
-MenuItem.prototype.render = function() {
-  var li = document.createElement('li');
-  var link = document.createElement('a');
+MenuItem.prototype.render = function () {
+    var li = document.createElement('li');
+    var link = document.createElement('a');
 
-  link.href = this.href;
-  link.textContent = this.title;
+    link.href = this.href;
+    link.textContent = this.title;
 
-  li.appendChild(link);
+    li.appendChild(link);
 
-  return li;
+    return li;
+};
+
+
+function SubMenu(id, className, items) {
+    Container.call(this, id, className, 'ul');
+
+    this.items = items;
 }
+
+SubMenu.prototype = Object.create(Container.prototype);
+SubMenu.prototype.render = function () {
+
+    var ul = document.createElement('ul');
+
+    this.items.forEach(function (item) {
+        if (item instanceof Container) {
+            ul.appendChild(item.render());
+        }
+    });
+
+    var li = document.createElement('li');
+    li.appendChild(ul);
+
+    return li;
+};
